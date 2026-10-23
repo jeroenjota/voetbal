@@ -1,0 +1,8 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^pwd; ls -la; node --version; npm --version; head -n 45 vbpool2-mariadb\\.sql; grep -n '\\^CREATE TABLE' vbpool2-mariadb\\.sql$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}
