@@ -1,0 +1,263 @@
+/* Paper-identical entry form (VBPool2 2021 layout). All sizes in mm/pt so screen and print match. */
+.pf {
+  --pf-dark: #404040;
+  --pf-line: 0.26mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8mm;
+  color: #000;
+  font-synthesis: weight style;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.pf-sheet {
+  position: relative;
+  box-sizing: border-box;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  background: #fff;
+  font-family: Calibri, Carlito, 'Segoe UI', sans-serif;
+  font-size: 11pt;
+  line-height: 1.21;
+  text-align: left;
+  box-shadow: 0 2px 18px rgb(0 0 0 / 0.18);
+}
+
+/* The 2021 form was always printed at 95%, centred on A4: that leaves just enough white margin for any printer. */
+.pf-page {
+  --pf-print-scale: 0.95;
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  margin: calc(297mm * (1 - var(--pf-print-scale)) / 2 / var(--pf-print-scale)) auto 0;
+  overflow: hidden;
+  zoom: var(--pf-print-scale);
+}
+
+.pf *, .pf *::before, .pf *::after { box-sizing: border-box; }
+.pf h1, .pf h2, .pf p { margin: 0; letter-spacing: normal; }
+.pf table { width: auto; white-space: normal; }
+.pf th, .pf td { padding: 0; border: 0; background: none; color: #000; font-size: inherit; font-weight: inherit; letter-spacing: normal; }
+
+.pf input, .pf select {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  appearance: none;
+}
+.pf input:disabled, .pf select:disabled {
+  opacity: 1;
+  color: #000;
+  -webkit-text-fill-color: #000;
+  cursor: default;
+}
+.pf select { text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- header ---------- */
+.pf-title {
+  margin-top: 0.5mm !important;
+  height: 8.4mm;
+  border-top: var(--pf-line) solid var(--pf-dark);
+  border-bottom: var(--pf-line) solid var(--pf-dark);
+  color: #000;
+  font-family: 'Kristen ITC', 'Comic Neue', 'Comic Sans MS', cursive;
+  font-size: 18.8pt;
+  font-weight: 400;
+  line-height: 8mm;
+  text-align: center;
+  white-space: nowrap;
+}
+.pf-bar { background: var(--pf-dark); color: #fff; font-weight: 700; white-space: nowrap; overflow: hidden; }
+.pf-main-bar {
+  margin-top: 0.3mm;
+  height: 7mm;
+  font-size: 16pt;
+  font-style: italic;
+  line-height: 7mm;
+  text-align: center;
+}
+.pf-gap { display: inline-block; width: 8mm; }
+
+/* ---------- participant box ---------- */
+.pf-person {
+  margin-top: 0.4mm;
+  height: 21mm;
+  padding-left: 3.5mm;
+  border: var(--pf-line) solid #000;
+  font-size: 18pt;
+  line-height: 7mm;
+}
+.pf-person-row { display: flex; align-items: flex-end; height: 10.4mm; padding-bottom: 1.3mm; }
+.pf-person-label { flex: none; margin-bottom: 0.8mm; padding-right: 1.6mm; white-space: nowrap; }
+.pf-line { height: 6.4mm; border-bottom: 0.2mm dotted #000 !important; font-size: 15pt !important; line-height: 6mm; }
+.pf-line-name { flex: none; width: 103mm; margin-right: 0.6mm !important; }
+.pf-line-email { flex: none; width: 104.6mm; margin-right: 0.6mm !important; }
+.pf-line-rest { flex: 1; }
+.pf-check {
+  position: relative;
+  flex: none;
+  width: 5.9mm;
+  height: 7.6mm;
+  margin: 0 1.8mm 0 0.2mm;
+  border: var(--pf-line) solid #000;
+}
+.pf-check input { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pf-check input:checked::after { content: '✓'; position: absolute; inset: 0; font-size: 15pt; line-height: 7mm; text-align: center; }
+.pf-bij { padding-right: 0; }
+
+/* ---------- text blocks ---------- */
+.pf-heading { margin-top: 0.4mm !important; color: var(--pf-dark); font-size: 16pt; font-weight: 700; line-height: 7mm; }
+.pf-main-bar + .pf-heading { margin-top: 1.6mm !important; }
+.pf-text { line-height: 4.72mm; }
+.pf-text-12 { font-size: 12pt; line-height: 5.1mm; }
+.pf-i1 { padding-left: 1.8mm; }
+.pf-i2 { padding-left: 4.7mm; }
+.pf-red { color: #f00; }
+.pf-center { font-size: 12pt; line-height: 5.2mm; text-align: center; }
+.pf-small { font-size: 9pt; line-height: 3.9mm; }
+
+/* ---------- sections ---------- */
+.pf-section { margin-top: 0.8mm; border: var(--pf-line) solid #000; }
+.pf-section-bar { height: 6.4mm; padding-left: 0.9mm; font-size: 14pt; line-height: 6.4mm; }
+.pf-section-bar small { font-size: 10pt; font-weight: 400; }
+
+.pf-groups .pf-section-bar small { padding-left: 1.3mm; }
+.pf-group-grid { display: grid; padding-bottom: 2.3mm; }
+.pf-group { padding-left: 0.9mm; border-right: var(--pf-line) solid #000; }
+.pf-group:last-child { border-right: 0; }
+.pf-group strong { display: block; font-size: 12pt; line-height: 5.2mm; }
+.pf-group-row { display: flex; align-items: center; justify-content: space-between; height: 4.33mm; font-size: 10pt; line-height: 4.33mm; }
+.pf-group-row span { overflow: hidden; white-space: nowrap; }
+.pf-group-row + .pf-group-row .pf-box { border-top: 0; }
+.pf-box {
+  flex: none;
+  width: 4.4mm !important;
+  height: 4.33mm;
+  margin-right: 1.8mm !important;
+  border: var(--pf-line) solid #000 !important;
+  text-align: center;
+}
+
+.pf-ko-grid { display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 1.8mm; padding: 0.6mm 0 0.7mm; }
+.pf-ko { display: flex; align-items: center; min-width: 0; }
+.pf-ko-nr { flex: none; width: 4.4mm; padding-left: 0.9mm; font-size: 8pt; }
+.pf-ko-box { flex: none; width: 46.4mm; border: var(--pf-line) solid #000; }
+.pf-ko-row { display: flex; height: 5.85mm; padding-left: 1.1mm; font-size: 12pt; line-height: 5.85mm; }
+.pf-ko-row + .pf-ko-row { border-top: var(--pf-line) solid #000; }
+.pf-ko-row select { flex: 1; padding-left: 1mm; }
+
+.pf-ko-final-row { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 0.7mm; margin-top: 0.8mm; }
+.pf-ko-final-row .pf-section { display: flex; flex-direction: column; margin-top: 0; }
+.pf-span-1 { grid-column: span 1; }
+.pf-span-2 { grid-column: span 2; }
+.pf-span-3 { grid-column: span 3; }
+.pf-span-4 { grid-column: span 4; }
+.pf-hatch {
+  flex: 1;
+  margin: 0.4mm 0.5mm 0.5mm;
+  border: var(--pf-line) solid #000;
+  background: repeating-linear-gradient(45deg, #fff 0 1.1mm, #000 1.1mm 1.3mm);
+}
+
+/* ---------- bottom box ---------- */
+.pf-bottom {
+  display: grid;
+  grid-template-columns: 52.6mm 77.4mm 1fr;
+  column-gap: 0.7mm;
+  height: 46.6mm;
+  margin-top: 0.2mm;
+  padding: 0.6mm 1.4mm 0 0.9mm;
+  border: var(--pf-line) solid #000;
+  font-size: 12pt;
+}
+.pf-panel { display: flex; flex-direction: column; min-width: 0; }
+.pf-panel-bar { height: 6.3mm; padding-left: 0.9mm; font-size: 14pt; line-height: 6.3mm; }
+.pf-cell { display: flex; align-items: center; height: 7.72mm; padding: 0 0.6mm; border: var(--pf-line) solid #000; white-space: nowrap; }
+.pf-panel > .pf-cell + .pf-cell, .pf-number + .pf-number .pf-cell { border-top: 0; }
+.pf-standing select { flex: 1; padding-left: 1mm; }
+.pf-topscorer { display: flex; }
+.pf-topscorer-name { flex: 1; min-width: 0; }
+.pf-topscorer-name select { flex: 1; padding-left: 0.6mm; }
+.pf-topscorer-goals { flex: none; width: 20.3mm; border-left: 0; }
+.pf-topscorer-goals input { flex: 1; width: 100%; text-align: center; }
+.pf-number { display: flex; }
+.pf-number .pf-cell:first-child { flex: 1; padding-left: 0.9mm; }
+.pf input.pf-cell { border: var(--pf-line) solid #000; }
+.pf-number input.pf-cell { flex: none; width: 15.6mm; border-left: 0; text-align: center; }
+
+.pf-footer {
+  position: absolute;
+  top: 291mm;
+  right: 0;
+  left: 0;
+  padding-top: 1.8mm;
+  border-top: var(--pf-line) solid var(--pf-dark);
+  color: var(--pf-dark);
+  font-family: 'Times New Roman', 'Liberation Serif', serif;
+  font-size: 7.5pt;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ---------- page 2: match table ---------- */
+.pf-matches { display: flex; gap: 1.2mm; margin-top: 3.6mm; }
+.pf-match-table { flex: 1; width: 0; border: var(--pf-line) solid #000; border-collapse: collapse; table-layout: fixed; font-size: 10pt; line-height: 1; }
+.pf-match-table th { height: 5.6mm; padding: 0 0.6mm; font-weight: 400; text-align: center; }
+.pf-match-table td { height: var(--pf-row, 6.55mm); padding: 0 0 0 0.9mm; border-top: var(--pf-line) solid #000; white-space: nowrap; overflow: hidden; }
+.pf-match-table th:nth-child(-n + 3), .pf-match-table td:nth-child(-n + 3) { border-right: var(--pf-line) solid #000; }
+.pf-match-table .pf-left { padding-left: 0.9mm; text-align: left; }
+.c-date { width: 13.5mm; }
+.c-time { width: 9.4mm; }
+.c-nr { width: 6.2mm; }
+.c-match { width: 39.2mm; }
+.c-score { width: 13.9mm; }
+.c-toto { width: 7.1mm; }
+.pf-match-table td.pf-time { padding-left: 0.6mm; }
+.pf-match-table td.pf-nr { padding: 0; text-align: center; }
+.pf-match-name { text-overflow: clip; }
+.pf-match-table td.pf-small-name { font-size: 8pt; }
+.pf-match-table td.pf-score-cell { padding: 0 0.6mm 0 0; }
+.pf-score { display: flex; align-items: center; height: 5.4mm; border: var(--pf-line) solid #000; }
+.pf-score input { width: 0; flex: 1; height: 100%; text-align: center; }
+.pf-score > span { flex: none; }
+.pf-toto { width: 6.2mm; }
+
+.pf-deadline {
+  position: absolute;
+  top: 288.3mm;
+  right: 0;
+  left: 0;
+  height: 8mm;
+  padding-top: 1.2mm;
+  font-size: 16pt;
+  line-height: 6.8mm;
+  text-align: center;
+}
+
+/* ---------- interactive modes (screen only) ---------- */
+@media screen {
+  .pf-online input:not(:disabled), .pf-online select:not(:disabled),
+  .pf-admin input:not(:disabled), .pf-admin select:not(:disabled) { background-color: #fff7cc; cursor: text; }
+  .pf select:not(:disabled) { cursor: pointer; }
+  .pf input:not(:disabled):focus, .pf select:not(:disabled):focus { background-color: #dbeafe; box-shadow: inset 0 0 0 0.4mm #2563eb; }
+  .pf-validate input:invalid, .pf-validate select:invalid { background-color: #fecaca !important; }
+  .pf .pf-dup { background-color: #fdba74 !important; }
+}
+
+@page pf { size: A4 portrait; margin: 0; }
+
+@media print {
+  .pf { display: block; zoom: 1 !important; }
+  .pf-sheet { page: pf; height: 296.9mm; box-shadow: none; break-after: page; }
+  .pf-sheet:last-child { break-after: auto; }
+  .pf input::placeholder { color: transparent; }
+}

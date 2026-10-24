@@ -7,3 +7,4 @@ dist/
 *.local
 # Database exports can contain personal data.
 *.sql
+!server/migrations/*.sql
