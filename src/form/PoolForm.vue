@@ -110,10 +110,12 @@ function setFinal(match: FormMatch, side: 0 | 1, event: Event) {
   entry.value.finals[String(match.number)]![side] = value ? Number(value) : null
 }
 function setScore(match: FormMatch, key: 'htA' | 'htB' | 'ftA' | 'ftB', event: Event) {
-  entry.value.matches[String(match.number)]![key] = parse(event, 99)
+  const value = parse(event, 99)
+  entry.value.matches[String(match.number)]![key] = props.mode === 'online' ? value ?? 0 : value
 }
 function setToto(match: FormMatch, event: Event) {
-  entry.value.matches[String(match.number)]!.toto = parseRange(event, 1, 3)
+  const value = parseRange(event, 1, 3)
+  entry.value.matches[String(match.number)]!.toto = props.mode === 'online' ? value ?? 3 : value
 }
 function setStanding(index: number, event: Event) {
   const value = (event.target as HTMLSelectElement).value
@@ -157,11 +159,11 @@ const show = (value: number | null | undefined) => value ?? ''
           <label class="pf-person-label" for="pf-name">Naam:</label>
           <input id="pf-name" v-model="entry.name" class="pf-line pf-line-name" autocomplete="name" maxlength="130" :disabled="readonly" required />
           <label class="pf-person-label" for="pf-phone">Telefoon:</label>
-          <input id="pf-phone" v-model="entry.telephone" class="pf-line pf-line-rest" type="tel" autocomplete="tel" maxlength="20" :disabled="readonly" required />
+          <input id="pf-phone" v-model="entry.telephone" class="pf-line pf-line-rest" type="tel" autocomplete="tel" maxlength="20" :disabled="readonly" :required="mode !== 'online'" />
         </div>
         <div class="pf-person-row">
           <label class="pf-person-label" for="pf-email">Email:</label>
-          <input id="pf-email" v-model="entry.email" class="pf-line pf-line-email" type="email" autocomplete="email" maxlength="255" :disabled="readonly" required />
+          <input id="pf-email" v-model="entry.email" class="pf-line pf-line-email" type="email" autocomplete="email" maxlength="255" :disabled="readonly" :required="mode !== 'online'" />
           <label class="pf-person-label" for="pf-payed">Betaald</label>
           <span class="pf-check"><input id="pf-payed" v-model="entry.payed" type="checkbox" :disabled="mode !== 'admin'" /></span>
           <label class="pf-person-label pf-bij" for="pf-payed-to">bij:</label>

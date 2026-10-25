@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import { ArrowLeft, Check, FileDown, Printer, RotateCcw, Send } from '@lucide/vue'
 import PoolForm from '../form/PoolForm.vue'
 import { api, errorMessage } from '../api'
-import { completeEntry, emptyEntry, missingFields, weekdayDate } from '../../shared/entry'
+import { missingFields, onlineEntry, weekdayDate } from '../../shared/entry'
 import type { EntryPrediction, FormData } from '../../shared/types'
 import { readDraftState, writeDraft } from '../draft'
 
@@ -32,7 +32,7 @@ onMounted(async () => {
   try {
     const data = await api.activeForm()
     const state = readDraftState(data.pool.id)
-    entry.value = state ? completeEntry(state.entry, data) : emptyEntry(data)
+    entry.value = onlineEntry(data, state?.entry)
     submittedId.value = state?.submittedId
     submittedAt.value = state?.submittedAt
     form.value = data
@@ -92,7 +92,7 @@ function startOver() {
   submittedAt.value = undefined
   validate.value = false
   error.value = ''
-  entry.value = emptyEntry(form.value)
+  entry.value = onlineEntry(form.value)
 }
 
 function printForm() {

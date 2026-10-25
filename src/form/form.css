@@ -253,11 +253,11 @@
   .pf .pf-dup { background-color: #fdba74 !important; }
 }
 
-@page pf { size: A4 portrait; margin: 0; }
+@page { size: A4 portrait; margin: 0; }
 
 @media print {
   .pf { display: block; zoom: 1 !important; }
-  .pf-sheet { page: pf; height: 296.9mm; box-shadow: none; break-after: page; }
-  .pf-sheet:last-child { break-after: auto; }
+  .pf-sheet { height: 296mm; box-shadow: none; break-inside: avoid; }
+  .pf-sheet + .pf-sheet { break-before: page; }
   .pf input::placeholder { color: transparent; }
 }

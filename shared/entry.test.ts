@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  completeEntry, emptyEntry, euro, knockoutRounds, longDate, missingFields, numberLabel, numberTypes, shortDay, splitName, standingPlaces, weekdayDate,
+  completeEntry, emptyEntry, euro, knockoutRounds, longDate, missingFields, numberLabel, numberTypes, onlineEntry, shortDay, splitName, standingPlaces, weekdayDate,
 } from './entry'
 import { sampleForm } from './fixtures'
 import type { EntryPrediction } from './types'
@@ -46,6 +46,19 @@ describe('emptyEntry / completeEntry', () => {
     expect(entry.numbers).toEqual({ 18: 5 })
     expect(entry.standings).toEqual([null, null, null, null])
   })
+
+  it('defaults empty online match predictions to 0-0 and toto 3', () => {
+    const entry = onlineEntry(sampleForm())
+    expect(entry.matches['1']).toEqual({ htA: 0, htB: 0, ftA: 0, ftB: 0, toto: 3 })
+    expect(emptyEntry(sampleForm()).matches['1']).toEqual({ htA: null, htB: null, ftA: null, ftB: null, toto: null })
+  })
+
+  it('fills missing predictions in online drafts without replacing entered values', () => {
+    const entry = onlineEntry(sampleForm(), {
+      matches: { 1: { htA: 1, htB: null, ftA: 2, ftB: 0, toto: null } },
+    })
+    expect(entry.matches['1']).toEqual({ htA: 1, htB: 0, ftA: 2, ftB: 0, toto: 3 })
+  })
 })
 
 describe('missingFields', () => {
@@ -56,7 +69,8 @@ describe('missingFields', () => {
   it('lists contact details, groups, finals, matches and extras', () => {
     const missing = missingFields(emptyEntry(sampleForm()), sampleForm())
     expect(missing).toContain('Naam')
-    expect(missing).toContain('Email')
+    expect(missing).not.toContain('Telefoon')
+    expect(missing).not.toContain('Email')
     expect(missing).toContain('Groep A: Team 1')
     expect(missing).toContain('halve finale 2: 1A')
     expect(missing).toContain('Wedstrijd 3: toto')
@@ -73,6 +87,13 @@ describe('missingFields', () => {
     entry.email = 'geen-email'
     entry.groups.A = [1, 2, 3, 5]
     expect(missingFields(entry, sampleForm())).toEqual(['Email', 'Groep A: Team 4'])
+  })
+
+  it('allows empty contact details', () => {
+    const entry = filledEntry()
+    entry.telephone = ''
+    entry.email = ''
+    expect(missingFields(entry, sampleForm())).toEqual([])
   })
 })
 

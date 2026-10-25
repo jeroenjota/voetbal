@@ -96,14 +96,27 @@ export function completeEntry(entry: Partial<EntryPrediction>, form: Pick<FormDa
   }
 }
 
+export function onlineEntry(form: Pick<FormData, 'groups' | 'matches' | 'points'>, entry?: Partial<EntryPrediction>): EntryPrediction {
+  const completed = entry ? completeEntry(entry, form) : emptyEntry(form)
+  return {
+    ...completed,
+    matches: Object.fromEntries(Object.entries(completed.matches).map(([number, prediction]) => [number, {
+      htA: prediction.htA ?? 0,
+      htB: prediction.htB ?? 0,
+      ftA: prediction.ftA ?? 0,
+      ftB: prediction.ftB ?? 0,
+      toto: prediction.toto ?? 3,
+    }])),
+  }
+}
+
 export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 /** Human readable list of everything that still has to be filled in. */
 export function missingFields(entry: EntryPrediction, form: Pick<FormData, 'groups' | 'matches' | 'points'>): string[] {
   const missing: string[] = []
   if (!entry.name.trim()) missing.push('Naam')
-  if (!entry.telephone.trim()) missing.push('Telefoon')
-  if (!EMAIL_PATTERN.test(entry.email.trim())) missing.push('Email')
+  if (entry.email.trim() && !EMAIL_PATTERN.test(entry.email.trim())) missing.push('Email')
   for (const group of form.groups) {
     group.teams.forEach((team, index) => {
       const value = entry.groups[group.letter]?.[index]

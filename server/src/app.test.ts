@@ -86,6 +86,14 @@ describe('POST /api/pools/:poolId/entries', () => {
     expect(state.saved[0]).toMatchObject({ entry: { name: 'Jan Jansen', payed: false, payedTo: '' }, options: { source: 'online' } })
   })
 
+  it('accepts an online entry without telephone or email', async () => {
+    const entry = completeEntry(sampleForm())
+    entry.telephone = ''
+    entry.email = ''
+    const response = await submit(entry)
+    expect(response.status).toBe(201)
+  })
+
   it('refuses incomplete forms with a list of missing fields', async () => {
     const entry = completeEntry(sampleForm())
     entry.matches['1']!.toto = null
